@@ -2,6 +2,7 @@
 class Deck
 
   attr_accessor :deck
+  attr_accessor :random_card
   
   def initialize
     create_desk
@@ -21,6 +22,11 @@ class Deck
 
   def shuffle_deck
     @deck.shuffle!
+  end
+
+  def take_card
+    @random_card = @deck.sample
+    @deck.delete(@random_card)
   end
 
 end
