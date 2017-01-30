@@ -4,7 +4,8 @@ class Deck
   attr_accessor :deck
   
   def initialize
-    create_desk    
+    create_desk
+    shuffle_deck  
   end
 
 
@@ -18,7 +19,12 @@ class Deck
     end 
   end
 
+  def shuffle_deck
+    @deck.shuffle!
+  end
+
 end
 
 
 deck = Deck.new
+deck.shuffle_deck
