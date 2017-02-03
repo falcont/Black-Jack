@@ -1,21 +1,18 @@
 # Deck class
 class Deck
 
-  attr_accessor :deck
-  attr_accessor :random_card
-  
   def initialize
-    create_desk
-    shuffle_deck  
+    create_deck
+    shuffle_deck 
   end
 
-
-  def create_desk
+  def create_deck
     suits = %w(♣ ♠ ♥ ♦)
-    faces = %w(2 3 4 5 6 7 8 9 10 J Q K A)
+    #faces = %w(2 3 4 5 6 7 8 9 10 J Q K A)
+    faces = ['2 ', '3 ', '4 ', '5 ', '6 ', '7 ', '8 ', '9 ', '10', 'J ', 'Q ', 'K ', 'A '] #так удобнее для вывода
     suits.each do |suit|
       faces.each do |face|
-        (@deck ||= []) << {suit => face}
+        (@deck ||= []) << { suit => face }
       end
     end 
   end
@@ -29,8 +26,14 @@ class Deck
     @deck.delete(@random_card)
   end
 
+  def deal_cards(n)
+    cards = []
+    n.times { cards << take_card }
+    cards
+  end
+
+  def cards_left
+    puts "Cards in deck: #{@deck.size}"
+  end
+
 end
-
-
-deck = Deck.new
-deck.shuffle_deck
