@@ -1,3 +1,5 @@
+require_relative 'print'
+
 # Player class
 class Player
 
@@ -9,7 +11,7 @@ class Player
   def initialize
     @balance = 100
     @name ||= ''
-    @score ||= 0
+    @score = 0
     @cards = []
   end
 
@@ -33,22 +35,22 @@ class Player
     score_cards = []
     if @score == 0
       score_cards = @cards
-    else
+    else 
       score_cards << @cards.last
     end
-      score_cards.each do |card|
-        card.values.each do |value|
-          if %w(J Q K).include? value.strip
-            @score += 10
-          elsif value.strip == 'A' && @score <= 11
-            @score += 11
-          elsif value.strip == 'A' && @score > 11
-            @score += 1
-          else 
-            @score += value.to_i
-          end
+    score_cards.each do |card|
+      card.values.each do |value|
+        if %w(J Q K).include? value.strip
+          @score += 10
+        elsif value.strip == 'A' && @score <= 11
+          @score += 11
+        elsif value.strip == 'A' && @score > 11
+          @score += 1
+        else 
+          @score += value.to_i
         end
-      end 
+      end
+    end
     @score
   end
 
