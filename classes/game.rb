@@ -41,5 +41,48 @@ class Game
   end
 
 
-  
+  def show_menu
+    puts "\nMenu:"
+    puts "1. Add card."
+    puts "2. Skip move."
+    puts "3. Open  cards."
+    puts 'Enter \'stop\' for exit.'
+  end
+
+
+  def input
+    print "\nEnter your choice number: "
+    input = gets.chomp
+    return input if input.to_i < 4
+    wrong_input
+  end
+
+
+  def input_processing(value)
+    stop?(value)
+    case value.to_i
+    when 1
+      human_move
+      dealler_move
+      game_results
+      new_game
+    when 2
+      dealler_move
+      game_results
+      new_game
+    when 3
+      open
+      game_results
+      new_game
+    end
+  end
+
+
+  def stop?(input)
+    exit if input.to_s == 'stop'
+  end
+
+  def wrong_input
+    puts "\nWrong input!"
+  end
 end
