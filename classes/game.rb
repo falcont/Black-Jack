@@ -2,7 +2,7 @@
 require_relative 'deck'
 require_relative 'human'
 require_relative 'dealler'
-require_relative 'print'
+require_relative '../modules/print'
 
 class Game
   include Print     
