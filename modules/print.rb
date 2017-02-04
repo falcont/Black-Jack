@@ -3,7 +3,7 @@ module Print
 
   def print_header(name)
     print "\n#{name.capitalize}'s cards: \t"
-    print "\t\tDealler's cards: \n"
+    print "\t\tDealer's cards: \n"
   end
 
 
@@ -18,11 +18,11 @@ module Print
   end
 
 
-  def print_two_cards(player_cards, dealler_cards, hide_dealler)
+  def print_two_cards(player_cards, dealer_cards, hide_dealer)
     #player_cards_array ||= []
     player_cards_array = cards_to_array(player_cards) || []
-    dealler_cards_array = cards_to_array(dealler_cards) || []
-    if hide_dealler == true
+    dealer_cards_array = cards_to_array(dealer_cards) || []
+    if hide_dealer == true
       
       print "+-------+  +-------+\t\t+-------+  +-------+\n"\
             "|#{player_cards_array[1]}     |  |#{player_cards_array[3]}     |\t\t|XXXXXXX|  |XXXXXXX|\n"\
@@ -31,21 +31,21 @@ module Print
             "|       |  |       |\t\t|XXXXXXX|  |XXXXXXX|\n"\
             "|     #{player_cards_array[1]}|  |     #{player_cards_array[3]}|\t\t|XXXXXXX|  |XXXXXXX|\n"\
             "+-------+  +-------+\t\t+-------+  +-------+\n\n"
-    elsif hide_dealler == false
-      #dealler_cards_array ||= []
+    elsif hide_dealer == false
+      #dealer_cards_array ||= []
       
       print "+-------+  +-------+\t\t+-------+  +-------+\n"\
-                "|#{player_cards_array[1]}     |  |#{player_cards_array[3]}     |\t\t|#{dealler_cards_array[1]}     |  |#{dealler_cards_array[3]}     |\n"\
+                "|#{player_cards_array[1]}     |  |#{player_cards_array[3]}     |\t\t|#{dealer_cards_array[1]}     |  |#{dealer_cards_array[3]}     |\n"\
                 "|       |  |       |\t\t|       |  |       |\n"\
-                "|   #{player_cards_array[0]}   |  |   #{player_cards_array[2]}   |\t\t|   #{dealler_cards_array[0]}   |  |   #{dealler_cards_array[2]}   |\n"\
+                "|   #{player_cards_array[0]}   |  |   #{player_cards_array[2]}   |\t\t|   #{dealer_cards_array[0]}   |  |   #{dealer_cards_array[2]}   |\n"\
                 "|       |  |       |\t\t|       |  |       |\n"\
-                "|     #{player_cards_array[1]}|  |     #{player_cards_array[3]}|\t\t|     #{dealler_cards_array[1]}|  |     #{dealler_cards_array[3]}|\n"\
+                "|     #{player_cards_array[1]}|  |     #{player_cards_array[3]}|\t\t|     #{dealer_cards_array[1]}|  |     #{dealer_cards_array[3]}|\n"\
                 "+-------+  +-------+\t\t+-------+  +-------+\n\n"
     end
   end
 
 
-  def print_one_card(player_card, dealler_card, open)
+  def print_one_card(player_card, dealer_card, open)
     if player_card
       player_card_array ||= []
       player_card.each do |k, v| 
@@ -54,15 +54,15 @@ module Print
       end
     end
 
-    if dealler_card
-      dealler_card_array ||= []
-      dealler_card.each do |k, v| 
-        dealler_card_array << k
-        dealler_card_array << v
+    if dealer_card
+      dealer_card_array ||= []
+      dealer_card.each do |k, v| 
+        dealer_card_array << k
+        dealer_card_array << v
       end
     end
 
-    if (player_card && dealler_card && open == false)     
+    if (player_card && dealer_card && open == false)     
       print "\t+-------+\t\t\t+-------+\n"\
             "\t|#{player_card_array[1]}     |\t\t\t|XXXXXXX|\n"\
             "\t|       |\t\t\t|XXXXXXX|\n"\
@@ -70,7 +70,7 @@ module Print
             "\t|       |\t\t\t|XXXXXXX|\n"\
             "\t|     #{player_card_array[1]}|\t\t\t|XXXXXXX|\n"\
             "\t+-------+\t\t\t+-------+\n"
-    elsif player_card && !dealler_card && open == true
+    elsif player_card && !dealer_card && open == true
       print "\t+-------+\n"\
             "\t|#{player_card_array[1]}     |\n"\
             "\t|       |\n"\
@@ -78,7 +78,7 @@ module Print
             "\t|       |\n"\
             "\t|     #{player_card_array[1]}|\n"\
             "\t+-------+\n"
-    elsif (!player_card && dealler_card && open == false)
+    elsif (!player_card && dealer_card && open == false)
       print "\t\t\t\t\t+-------+\n"\
             "\t\t\t\t\t|XXXXXXX|\n"\
             "\t\t\t\t\t|XXXXXXX|\n"\
@@ -87,21 +87,21 @@ module Print
             "\t\t\t\t\t|XXXXXXX|\n"\
             "\t\t\t\t\t+-------+\n"
 
-    elsif (player_card && dealler_card && open == true)
+    elsif (player_card && dealer_card && open == true)
       print "\t+-------+\t\t\t+-------+\n"\
-            "\t|#{player_card_array[1]}     |\t\t\t|#{dealler_card_array[1]}     |\n"\
+            "\t|#{player_card_array[1]}     |\t\t\t|#{dealer_card_array[1]}     |\n"\
             "\t|       |\t\t\t|       |\n"\
-            "\t|   #{player_card_array[0]}   |\t\t\t|   #{dealler_card_array[0]}   |\n"\
+            "\t|   #{player_card_array[0]}   |\t\t\t|   #{dealer_card_array[0]}   |\n"\
             "\t|       |\t\t\t|       |\n"\
-            "\t|     #{player_card_array[1]}|\t\t\t|     #{dealler_card_array[1]}|\n"\
+            "\t|     #{player_card_array[1]}|\t\t\t|     #{dealer_card_array[1]}|\n"\
             "\t+-------+\t\t\t+-------+\n"
-    elsif (!player_card && dealler_card && open == true)
+    elsif (!player_card && dealer_card && open == true)
       print "\t\t\t\t\t+-------+\n"\
-            "\t\t\t\t\t|#{dealler_card_array[1]}     |\n"\
+            "\t\t\t\t\t|#{dealer_card_array[1]}     |\n"\
             "\t\t\t\t\t|       |\n"\
-            "\t\t\t\t\t|   #{dealler_card_array[0]}   |\n"\
+            "\t\t\t\t\t|   #{dealer_card_array[0]}   |\n"\
             "\t\t\t\t\t|       |\n"\
-            "\t\t\t\t\t|     #{dealler_card_array[1]}|\n"\
+            "\t\t\t\t\t|     #{dealer_card_array[1]}|\n"\
             "\t\t\t\t\t+-------+\n"           
     end
   end

@@ -1,9 +1,9 @@
-# Game class
 require_relative 'deck'
 require_relative 'human'
-require_relative 'dealler'
+require_relative 'dealer'
 require_relative '../modules/print'
 
+# Game class
 class Game
   include Print     
 
@@ -12,13 +12,13 @@ class Game
   def initialize
     @human = Human.new
     @human.set_name
-    @dealler = Diller.new
+    @dealer = Dealer.new
   end
 
 
 
   def start_game
-    unless (@human.balance || @dealler.balance) > 10
+    unless (@human.balance || @dealer.balance) > 10
       puts "Players haven't enough money!"
       exit
     end      
@@ -28,12 +28,12 @@ class Game
     @human.calculate_score
     @bank += @human.bet
      
-    @dealler.get_cards(@deck.deal_cards(2))
-    @dealler.calculate_score
-    @bank += @dealler.bet
+    @dealer.get_cards(@deck.deal_cards(2))
+    @dealer.calculate_score
+    @bank += @dealer.bet
     
     print_header(@human.name)
-    print_two_cards(@human.cards, @dealler.cards, true)
+    print_two_cards(@human.cards, @dealer.cards, true)
 
     print_info(@human.score, @human.balance)
     @deck.cards_left
@@ -63,11 +63,11 @@ class Game
     case value.to_i
     when 1
       human_move
-      dealler_move
+      dealer_move
       game_results
       new_game
     when 2
-      dealler_move
+      dealer_move
       game_results
       new_game
     when 3
@@ -78,20 +78,20 @@ class Game
   end
 
 
-  def dealler_move
+  def dealer_move
     print "\nDealer is moving...\n"
     sleep(1)
-    if @dealler.score < 18
+    if @dealer.score < 18
       print_header(@human.name)
-      @dealler.get_cards(@deck.deal_cards(1))
-      @dealler.calculate_score
-      print_two_cards(@human.cards, @dealler.cards, true)
-      print_one_card(@human.cards[2], @dealler.cards[2], false)
+      @dealer.get_cards(@deck.deal_cards(1))
+      @dealer.calculate_score
+      print_two_cards(@human.cards, @dealer.cards, true)
+      print_one_card(@human.cards[2], @dealer.cards[2], false)
       print_info(@human.score, @human.balance)
       @deck.cards_left
       print_bank
     else
-      print_two_cards(@human.cards, @dealler.cards, true)
+      print_two_cards(@human.cards, @dealer.cards, true)
       print_one_card(@human.cards[2], @dealler.cards[2], true)
       print_info(@human.score, @human.balance)
       @deck.cards_left
@@ -101,8 +101,8 @@ class Game
 
   def open
     print_header(@human.name)
-    print_two_cards(@human.cards, @dealler.cards, false)
-    print_all_info(@human.score, @human.balance, @dealler.score, @dealler.balance)
+    print_two_cards(@human.cards, @dealer.cards, false)
+    print_all_info(@human.score, @human.balance, @dealer.score, @dealer.balance)
     @deck.cards_left
     print_bank
   end
@@ -110,7 +110,7 @@ class Game
 
   def human_move
     print_header(@human.name)
-    print_two_cards(@human.cards, @dealler.cards, true)
+    print_two_cards(@human.cards, @dealer.cards, true)
     @human.get_cards(@deck.deal_cards(1))
     @human.calculate_score
     print_one_card(@human.cards[2], nil, true)   
@@ -122,22 +122,22 @@ class Game
 
   def game_results
     print "\n\t\tGame results:\n"
-    print_all_info(@human.score, @human.balance, @dealler.score, @dealler.balance)
+    print_all_info(@human.score, @human.balance, @dealer.score, @dealer.balance)
     @deck.cards_left
     print_bank
-    if (@human.score > 21) && (@dealler.score > 21)
+    if (@human.score > 21) && (@dealer.score > 21)
       draw
-    elsif (@human.score > 21) && (@dealler.score < 21)
-      win(@dealler)
-    elsif (@human.score < 21) && (@dealler.score > 21)
+    elsif (@human.score > 21) && (@dealer.score < 21)
+      win(@dealer)
+    elsif (@human.score < 21) && (@dealer.score > 21)
       win(@human)
     else
-      if @human.score == @dealler.score
+      if @human.score == @dealer.score
         draw
-      elsif @human.score > @dealler.score
+      elsif @human.score > @dealer.score
         win(@human)
-      elsif @human.score < @dealler.score
-        win(@dealler)
+      elsif @human.score < @dealer.score
+        win(@dealer)
       end
     end
   end
@@ -154,7 +154,7 @@ class Game
   def draw
     puts "\t\t! ! ! D R A W ! ! !"
     @human.balance += @bank/2
-    @dealler.balance += @bank/2
+    @dealer.balance += @bank/2
   end
 
   def new_game
@@ -162,8 +162,8 @@ class Game
     if gets.chomp == 'y'
       @human.score = 0
       @human.cards = []
-      @dealler.score = 0
-      @dealler.cards = []
+      @dealer.score = 0
+      @dealer.cards = []
       start_game
     else
       exit

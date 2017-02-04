@@ -1,5 +1,3 @@
-require_relative 'print'
-
 # Player class
 class Player
 

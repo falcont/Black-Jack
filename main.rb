@@ -1,6 +1,6 @@
-require_relative 'deck'
-require_relative 'player'
-require_relative 'game'
+#require_relative 'deck'
+#require_relative 'classes/player'
+require_relative 'classes/game'
 
 print "\t  ____  _            _     _            _     \n"\
       "\t | __ )| | __ _  ___| | __(_) __ _  ___| | __ \n"\
