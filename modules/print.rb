@@ -20,7 +20,7 @@ module Print
 
   def print_two_cards(player_cards, dealer_cards, hide_dealer)
     #player_cards_array ||= []
-    player_cards_array = cards_to_array(player_cards) || []
+    player_cards_array = cards_to_array(player_cards) || [] # это нормальная конструкция?
     dealer_cards_array = cards_to_array(dealer_cards) || []
     if hide_dealer == true
       
