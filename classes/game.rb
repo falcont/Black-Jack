@@ -93,7 +93,7 @@ class Game
       print_bank
     else
       print_two_cards(@human.cards, @dealer.cards, true)
-      print_one_card(@human.cards[2], @dealler.cards[2], true)
+      print_one_card(@human.cards[2], @dealer.cards[2], true)
       print_info(@human.score, @human.balance)
       @deck.cards_left
       print_bank
