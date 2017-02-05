@@ -78,7 +78,8 @@ class Game
     end
   end
 
-
+  private
+  
   def dealer_move
     print "\nDealer is moving...\n"
     sleep(1)
@@ -123,9 +124,7 @@ class Game
 
   def game_results
     print "\n\t\tGame results:\n"
-    print_all_info(@human.score, @human.balance, @dealer.score, @dealer.balance)
-    @deck.cards_left
-    print_bank
+
     if (@human.score > 21) && (@dealer.score > 21)
       draw
     elsif (@human.score > 21) && (@dealer.score < 21)
@@ -141,6 +140,9 @@ class Game
         win(@dealer)
       end
     end
+    print_all_info(@human.score, @human.balance, @dealer.score, @dealer.balance)
+    @deck.cards_left
+    print_bank
   end
 
   def print_bank
@@ -150,12 +152,14 @@ class Game
   def win(player)
     puts "\t\t! ! ! #{player.name.capitalize} WINS ! ! !"
     player.balance += bank
+    @bank = 0
   end
 
   def draw
     puts "\t\t! ! ! D R A W ! ! !"
     @human.balance += @bank/2
     @dealer.balance += @bank/2
+    @bank = 0
   end
 
   def new_game
@@ -171,11 +175,15 @@ class Game
     end
   end
 
-  def stop?(input)
-    exit if input.to_s == 'stop'
-  end
+
+  
 
   def wrong_input
     puts "\nWrong input!"
   end
+
+  def stop?(input)
+    exit if input.to_s == 'stop'
+  end
+
 end
