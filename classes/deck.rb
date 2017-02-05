@@ -6,7 +6,6 @@ class Deck
     shuffle_deck 
   end
 
-
   def deal_cards(n)
     cards = []
     n.times { cards << take_card }

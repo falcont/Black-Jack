@@ -1,5 +1,3 @@
-#require_relative 'deck'
-#require_relative 'classes/player'
 require_relative 'classes/game'
 
 game = Game.new

@@ -16,8 +16,6 @@ class Game
     @dealer = Dealer.new
   end
 
-
-
   def start_game
     unless (@human.balance || @dealer.balance) > 10
       puts "Players haven't enough money!"
@@ -41,7 +39,6 @@ class Game
     print_bank
   end
 
-
   def show_menu
     puts "\nMenu:"
     puts "1. Add card."
@@ -50,14 +47,12 @@ class Game
     puts 'Enter \'stop\' for exit.'
   end
 
-
   def input
     print "\nEnter your choice number: "
     input = gets.chomp
     return input if input.to_i < 4
     wrong_input
   end
-
 
   def input_processing(value)
     stop?(value)
@@ -79,7 +74,7 @@ class Game
   end
 
   private
-  
+
   def dealer_move
     print "\nDealer is moving...\n"
     sleep(1)
@@ -109,7 +104,6 @@ class Game
     print_bank
   end
 
-
   def human_move
     print_header(@human.name)
     print_two_cards(@human.cards, @dealer.cards, true)
@@ -121,9 +115,8 @@ class Game
     print_bank
   end
 
-
   def game_results
-    print "\n\t\tGame results:\n"
+    print "\n\t\t     Game results:\n"
 
     if (@human.score > 21) && (@dealer.score > 21)
       draw
@@ -156,7 +149,7 @@ class Game
   end
 
   def draw
-    puts "\t\t! ! ! D R A W ! ! !"
+    puts "\t\t\t! ! ! D R A W ! ! !"
     @human.balance += @bank/2
     @dealer.balance += @bank/2
     @bank = 0
@@ -174,9 +167,6 @@ class Game
       exit
     end
   end
-
-
-  
 
   def wrong_input
     puts "\nWrong input!"

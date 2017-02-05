@@ -10,12 +10,10 @@ module Print
       "\t                        |__/                  \n"
   end
 
-
   def print_header(name)
     print "\n#{name.capitalize}'s cards: \t"
     print "\t\tDealer's cards: \n"
   end
-
 
   def print_info(score, balance)
     puts "Score: #{score}"
@@ -26,7 +24,6 @@ module Print
     puts "Score: #{human_score}\t\t\tDealer score: #{dealer_score}"
     puts "Balance: #{human_balance}\t\t\tDealer balance: #{dealer_balance}"
   end
-
 
   def print_two_cards(player_cards, dealer_cards, hide_dealer)
     #player_cards_array ||= []
@@ -53,7 +50,6 @@ module Print
                 "+-------+  +-------+\t\t+-------+  +-------+\n\n"
     end
   end
-
 
   def print_one_card(player_card, dealer_card, open)
     if player_card
@@ -115,7 +111,6 @@ module Print
             "\t\t\t\t\t+-------+\n"           
     end
   end
-
 
   private
 

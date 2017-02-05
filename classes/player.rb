@@ -22,12 +22,10 @@ class Player
     cards.each { |card| @cards << card }
   end
 
-
   def bet
     @balance -= 10
     10
   end
-
 
   def calculate_score
     score_cards = []
