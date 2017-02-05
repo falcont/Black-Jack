@@ -1,6 +1,16 @@
 # Print module
 module Print
 
+  def print_logo
+    print "\t  ____  _            _     _            _     \n"\
+      "\t | __ )| | __ _  ___| | __(_) __ _  ___| | __ \n"\
+      "\t |  _ \\| |/ _` |/ __| |/ /| |/ _` |/ __| |/ / \n"\
+      "\t | |_) | | (_| | (__|   < | | (_| | (__|   <  \n"\
+      "\t |____/|_|\\__,_|\\___|_|\\_\\/ |\\__,_|\\___|_|\\_\\ \n"\
+      "\t                        |__/                  \n"
+  end
+
+
   def print_header(name)
     print "\n#{name.capitalize}'s cards: \t"
     print "\t\tDealer's cards: \n"

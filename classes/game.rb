@@ -10,6 +10,7 @@ class Game
   attr_accessor :bank
 
   def initialize
+    print_logo
     @human = Human.new
     @human.set_name
     @dealer = Dealer.new
