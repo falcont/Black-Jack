@@ -38,9 +38,9 @@ class Player
       card.values.each do |value|
         if %w(J Q K).include? value.strip
           @score += 10
-        elsif value.strip == 'A' && @score <= 11
+        elsif value.strip == 'A' && @score < 11
           @score += 11
-        elsif value.strip == 'A' && @score > 11
+        elsif value.strip == 'A' && @score >= 11
           @score += 1
         else 
           @score += value.to_i
