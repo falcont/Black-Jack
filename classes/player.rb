@@ -13,11 +13,6 @@ class Player
     @cards = []
   end
 
-  # def set_name
-  #   print "Enter your name: "
-  #   @name = gets.chomp
-  # end
-
   def cards=(cards)
     cards.each { |card| @cards << card }
   end

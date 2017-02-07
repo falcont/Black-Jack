@@ -1,5 +1,12 @@
 # Deck class
 class Deck
+
+  SUITS = %w(♣ ♠ ♥ ♦).freeze
+  #faces = %w(2 3 4 5 6 7 8 9 10 J Q K A)
+  FACES = ['2 ', '3 ', '4 ', '5 ', '6 ', '7 ', '8 ', '9 ', '10', 'J ', 'Q ', 'K ', 'A '].freeze #все же оставлю так, иначе нужно будет сильно переделывать вывод
+
+
+
   attr_reader :deck
 
   def initialize
@@ -16,11 +23,8 @@ class Deck
   private
 
   def create_deck
-    suits = %w(♣ ♠ ♥ ♦)
-    #faces = %w(2 3 4 5 6 7 8 9 10 J Q K A)
-    faces = ['2 ', '3 ', '4 ', '5 ', '6 ', '7 ', '8 ', '9 ', '10', 'J ', 'Q ', 'K ', 'A '] #так удобнее для вывода
-    suits.each do |suit|
-      faces.each do |face|
+    SUITS.each do |suit|
+      FACES.each do |face|
         (@deck ||= []) << { suit => face }
       end
     end
@@ -30,7 +34,6 @@ class Deck
 
   def take_card
     @random_card = @deck.pop
-    @deck.delete(@random_card)
   end
 
 end

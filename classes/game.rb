@@ -17,10 +17,7 @@ class Game
 
   def start_game
     
-    unless (@human.balance || @dealer.balance) > 10
-      puts "Players haven't enough money!"
-      exit
-    end    
+    exit unless can_start_game?   
 
     @deck = Deck.new
     @bank = 0
@@ -77,6 +74,15 @@ class Game
   end
 
   private
+
+  def can_start_game?
+    if @human.balance || @dealer.balance < 10
+      puts "Players haven't enough money!" 
+      false
+    end
+    true
+  end
+
   
   def new_player
     print "Enter your name: "
