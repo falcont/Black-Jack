@@ -54,9 +54,9 @@ class Game
     wrong_input
   end
 
-  def input_processing(value)
-    stop?(value)
-    case value.to_i
+  def process_turn
+    stop?(input)
+    case input.to_i
     when 1
       human_move
       dealer_move

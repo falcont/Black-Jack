@@ -4,6 +4,5 @@ game = Game.new
 game.start_game
 game.show_menu
 
-loop do
-  game.input_processing(game.input)
-end
+loop { game.process_turn }
+
