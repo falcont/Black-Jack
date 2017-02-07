@@ -20,7 +20,8 @@ class Game
     unless (@human.balance || @dealer.balance) > 10
       puts "Players haven't enough money!"
       exit
-    end      
+    end    
+
     @deck = Deck.new
     @bank = 0
     @human.get_cards(@deck.deal_cards(2))
@@ -32,7 +33,7 @@ class Game
     @bank += @dealer.bet
     
     print_header(@human.name)
-    print_two_cards(@human.cards, @dealer.cards, true)
+    print_two_cards(@human.cards, @dealer.cards, hide_dealer: true)
 
     print_info(@human.score, @human.balance)
     @deck.cards_left
@@ -55,8 +56,9 @@ class Game
   end
 
   def process_turn
-    stop?(input)
-    case input.to_i
+    value = input
+    stop?(value)
+    case value.to_i
     when 1
       human_move
       dealer_move
@@ -82,13 +84,13 @@ class Game
       print_header(@human.name)
       @dealer.get_cards(@deck.deal_cards(1))
       @dealer.calculate_score
-      print_two_cards(@human.cards, @dealer.cards, true)
+      print_two_cards(@human.cards, @dealer.cards, hide_dealer: true)
       print_one_card(@human.cards[2], @dealer.cards[2], false)
       print_info(@human.score, @human.balance)
       @deck.cards_left
       print_bank
     else
-      print_two_cards(@human.cards, @dealer.cards, true)
+      print_two_cards(@human.cards, @dealer.cards, hide_dealer: true)
       print_one_card(@human.cards[2], @dealer.cards[2], true)
       print_info(@human.score, @human.balance)
       @deck.cards_left
@@ -98,7 +100,7 @@ class Game
 
   def open
     print_header(@human.name)
-    print_two_cards(@human.cards, @dealer.cards, false)
+    print_two_cards(@human.cards, @dealer.cards, hide_delaer: false)
     print_all_info(@human.score, @human.balance, @dealer.score, @dealer.balance)
     @deck.cards_left
     print_bank
@@ -106,7 +108,7 @@ class Game
 
   def human_move
     print_header(@human.name)
-    print_two_cards(@human.cards, @dealer.cards, true)
+    print_two_cards(@human.cards, @dealer.cards, hide_dealer: true)
     @human.get_cards(@deck.deal_cards(1))
     @human.calculate_score
     print_one_card(@human.cards[2], nil, true)   

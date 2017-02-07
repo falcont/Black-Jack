@@ -25,7 +25,7 @@ module Print
     puts "Balance: #{human_balance}\t\t\tDealer balance: #{dealer_balance}"
   end
 
-  def print_two_cards(player_cards, dealer_cards, hide_dealer)
+  def print_two_cards(player_cards, dealer_cards, hide_dealer: false)
     #player_cards_array ||= []
     player_cards_array = cards_to_array(player_cards) || [] # это нормальная конструкция?
     dealer_cards_array = cards_to_array(dealer_cards) || []
