@@ -29,7 +29,7 @@ class Deck
 
 
   def take_card
-    @random_card = @deck.sample
+    @random_card = @deck.pop
     @deck.delete(@random_card)
   end
 

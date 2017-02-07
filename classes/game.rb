@@ -58,7 +58,7 @@ class Game
 
   def process_turn
     value = input
-    stop?(value)
+    stop_game?(value)
     case value.to_i
     when 1
       human_move
@@ -70,7 +70,7 @@ class Game
       game_results
       new_game
     when 3
-      open
+      open_cards
       game_results
       new_game
     end
@@ -91,7 +91,7 @@ class Game
 
   def dealer_move
     print "\nDealer is moving...\n"
-    sleep(1)
+    sleep(rand(1..3))
     if @dealer.score < 18
       print_header(@human.name)
       @dealer.cards = @deck.deal_cards(1)
@@ -110,7 +110,7 @@ class Game
     end
   end
 
-  def open
+  def open_cards
     print_header(@human.name)
     print_two_cards(@human.cards, @dealer.cards, hide_dealer: false)
     print_all_info(@human.score, @human.balance, @dealer.score, @dealer.balance)
@@ -186,7 +186,7 @@ class Game
     puts "\nWrong input!"
   end
 
-  def stop?(input)
+  def stop_game?(input)
     exit if input.to_s == 'stop'
   end
 
