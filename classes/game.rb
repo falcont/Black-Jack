@@ -25,11 +25,11 @@ class Game
     @deck = Deck.new
     @bank = 0
     
-    @human.get_cards(@deck.deal_cards(2))
+    @human.cards = @deck.deal_cards(2)
     @human.calculate_score
     @bank += @human.bet
      
-    @dealer.get_cards(@deck.deal_cards(2))
+    @dealer.cards = @deck.deal_cards(2)
     @dealer.calculate_score
     @bank += @dealer.bet
     
@@ -94,7 +94,7 @@ class Game
     sleep(1)
     if @dealer.score < 18
       print_header(@human.name)
-      @dealer.get_cards(@deck.deal_cards(1))
+      @dealer.cards = @deck.deal_cards(1)
       @dealer.calculate_score
       print_two_cards(@human.cards, @dealer.cards, hide_dealer: true)
       print_one_card(@human.cards[2], @dealer.cards[2], false)
@@ -121,7 +121,7 @@ class Game
   def human_move
     print_header(@human.name)
     print_two_cards(@human.cards, @dealer.cards, hide_dealer: true)
-    @human.get_cards(@deck.deal_cards(1))
+    @human.cards = @deck.deal_cards(1)
     @human.calculate_score
     print_one_card(@human.cards[2], nil, true)   
     print_info(@human.score, @human.balance)
@@ -173,9 +173,9 @@ class Game
     puts "\nStart new game? (y/n)"
     if gets.chomp == 'y'
       @human.score = 0
-      @human.cards = []
+      @human.cards.clear
       @dealer.score = 0
-      @dealer.cards = []
+      @dealer.cards.clear
       start_game
     else
       exit
