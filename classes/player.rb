@@ -6,17 +6,17 @@ class Player
   attr_accessor :cards
   attr_accessor :score
 
-  def initialize
+  def initialize(name: name)
+    @name = name
     @balance = 100
-    @name ||= ''
     @score = 0
     @cards = []
   end
 
-  def set_name
-    print "Enter your name: "
-    @name = gets.chomp
-  end
+  # def set_name
+  #   print "Enter your name: "
+  #   @name = gets.chomp
+  # end
 
   def get_cards(cards)
     cards.each { |card| @cards << card }

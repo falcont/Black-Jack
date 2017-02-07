@@ -11,12 +11,12 @@ class Game
 
   def initialize
     print_logo
-    @human = Human.new
-    @human.set_name
+    @human = new_player
     @dealer = Dealer.new
   end
 
   def start_game
+    
     unless (@human.balance || @dealer.balance) > 10
       puts "Players haven't enough money!"
       exit
@@ -24,6 +24,7 @@ class Game
 
     @deck = Deck.new
     @bank = 0
+    
     @human.get_cards(@deck.deal_cards(2))
     @human.calculate_score
     @bank += @human.bet
@@ -76,6 +77,17 @@ class Game
   end
 
   private
+  
+  def new_player
+    print "Enter your name: "
+    name = gets.chomp
+    unless name == '' || nil
+      Player.new(name: name) unless name == ''
+    else
+      wrong_input
+      new_player
+    end
+  end
 
   def dealer_move
     print "\nDealer is moving...\n"
@@ -100,7 +112,7 @@ class Game
 
   def open
     print_header(@human.name)
-    print_two_cards(@human.cards, @dealer.cards, hide_delaer: false)
+    print_two_cards(@human.cards, @dealer.cards, hide_dealer: false)
     print_all_info(@human.score, @human.balance, @dealer.score, @dealer.balance)
     @deck.cards_left
     print_bank

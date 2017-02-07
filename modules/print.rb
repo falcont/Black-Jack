@@ -2,12 +2,12 @@
 module Print
 
   def print_logo
-    print "\t  ____  _            _     _            _     \n"\
-      "\t | __ )| | __ _  ___| | __(_) __ _  ___| | __ \n"\
-      "\t |  _ \\| |/ _` |/ __| |/ /| |/ _` |/ __| |/ / \n"\
-      "\t | |_) | | (_| | (__|   < | | (_| | (__|   <  \n"\
-      "\t |____/|_|\\__,_|\\___|_|\\_\\/ |\\__,_|\\___|_|\\_\\ \n"\
-      "\t                        |__/                  \n"
+    print "\t ____  _            _     _            _     \n"\
+      "\t| __ )| | __ _  ___| | __(_) __ _  ___| | __ \n"\
+      "\t|  _ \\| |/ _` |/ __| |/ /| |/ _` |/ __| |/ / \n"\
+      "\t| |_) | | (_| | (__|   < | | (_| | (__|   <  \n"\
+      "\t|____/|_|\\__,_|\\___|_|\\_\\/ |\\__,_|\\___|_|\\_\\ \n"\
+      "\t                       |__/                  \n"
   end
 
   def print_header(name)
@@ -29,7 +29,7 @@ module Print
     #player_cards_array ||= []
     player_cards_array = cards_to_array(player_cards) || [] # это нормальная конструкция?
     dealer_cards_array = cards_to_array(dealer_cards) || []
-    if hide_dealer == true
+    if hide_dealer
       
       print "+-------+  +-------+\t\t+-------+  +-------+\n"\
             "|#{player_cards_array[1]}     |  |#{player_cards_array[3]}     |\t\t|XXXXXXX|  |XXXXXXX|\n"\
