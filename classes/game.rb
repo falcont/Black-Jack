@@ -16,19 +16,13 @@ class Game
   end
 
   def start_game
-    
     exit unless can_start_game?   
 
     @deck = Deck.new
-    @bank = 0
-    
-    @human.cards = @deck.deal_cards(2)
-    @human.calculate_score
-    @bank += @human.bet
-     
-    @dealer.cards = @deck.deal_cards(2)
-    @dealer.calculate_score
-    @bank += @dealer.bet
+
+    make_bet
+    get_cards
+    calculate_score
     
     print_header(@human.name)
     print_two_cards(@human.cards, @dealer.cards, hide_dealer: true)
@@ -76,14 +70,30 @@ class Game
   private
 
   def can_start_game?
-    if @human.balance || @dealer.balance < 10
+    if (@human.balance || @dealer.balance) < 11
       puts "Players haven't enough money!" 
       false
     end
     true
   end
 
-  
+
+  def make_bet
+    @bank = 0
+    @bank += @human.bet
+    @bank += @dealer.bet
+  end
+
+  def get_cards
+    @human.cards = @deck.deal_cards(2)
+    @dealer.cards = @deck.deal_cards(2)
+  end
+
+  def calculate_score
+    @human.calculate_score
+    @dealer.calculate_score
+  end
+
   def new_player
     print "Enter your name: "
     name = gets.chomp
