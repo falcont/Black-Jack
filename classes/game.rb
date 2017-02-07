@@ -18,7 +18,8 @@ class Game
   end
 
   def start_game
-    exit unless can_start_game?   
+    exit unless can_start_game?
+    reset_game! 
 
     @deck = Deck.new
     
@@ -115,13 +116,13 @@ Enter \'stop\' for exit.
       @dealer.cards = @deck.deal_cards(1)
       @dealer.calculate_score
       print_two_cards(@human.cards, @dealer.cards, hide_dealer: true)
-      print_one_card(@human.cards[2], @dealer.cards[2], false)
+      print_one_card(@human.cards[2], @dealer.cards[2], hide_dealer: true)
       print_info(@human.score, @human.balance)
       print_cards_left(@deck.deck)
       print_bank(@bank)
     else
       print_two_cards(@human.cards, @dealer.cards, hide_dealer: true)
-      print_one_card(@human.cards[2], @dealer.cards[2], true)
+      print_one_card(@human.cards[2], @dealer.cards[2], hide_dealer: false)
       print_info(@human.score, @human.balance)
       print_cards_left(@deck.deck)
       print_bank(@bank)
@@ -141,7 +142,7 @@ Enter \'stop\' for exit.
     print_two_cards(@human.cards, @dealer.cards, hide_dealer: true)
     @human.cards = @deck.deal_cards(1)
     @human.calculate_score
-    print_one_card(@human.cards[2], nil, true)   
+    print_one_card(@human.cards[2], nil, hide_dealer: false)   
     print_info(@human.score, @human.balance)
     print_cards_left(@deck.deck)
     print_bank(@bank)
@@ -149,26 +150,28 @@ Enter \'stop\' for exit.
 
   def game_results
     print "\n\t\t     Game results:\n"
-
-    if (@human.score > 21) && (@dealer.score > 21)
-      draw
-    elsif (@human.score > 21) && (@dealer.score < 21)
+    if @human.score > 21
       win(@dealer)
-    elsif (@human.score < 21) && (@dealer.score > 21)
+    elsif human_wins?
       win(@human)
+    elsif @human.score == @dealer.score
+      draw
     else
-      if @human.score == @dealer.score
-        draw
-      elsif @human.score > @dealer.score
-        win(@human)
-      elsif @human.score < @dealer.score
-        win(@dealer)
-      end
+      win(@dealer)
     end
+
     print_all_info(@human.score, @human.balance, @dealer.score, @dealer.balance)
     print_cards_left(@deck.deck)
     print_bank(@bank)
   end
+
+
+  def human_wins?
+    (@human.score < 21 && @dealer.score > 21) || (@human.score > @dealer.score)
+  end
+
+
+
 
 
   def win(player)
@@ -187,18 +190,17 @@ Enter \'stop\' for exit.
   def new_game
     puts "\nStart new game? (y/n)"
     if gets.chomp == 'y'
-      @human.score = 0
-      @human.cards.clear # .clear работает, а "= []" нет
-      @dealer.score = 0
-      @dealer.cards.clear
       start_game
     else
       exit
     end
   end
 
-  def wrong_input
-    puts "\nWrong input!"
+  def reset_game!
+    @human.score = 0
+    @human.cards.clear # .clear работает, а "= []" нет
+    @dealer.score = 0
+    @dealer.cards.clear
   end
 
   def stop_game?(input)

@@ -51,7 +51,7 @@ module Print
     end
   end
 
-  def print_one_card(player_card, dealer_card, open)
+  def print_one_card(player_card, dealer_card, hide_dealer: true)
     if player_card
       player_card_array ||= []
       player_card.each do |k, v| 
@@ -68,7 +68,7 @@ module Print
       end
     end
 
-    if (player_card && dealer_card && open == false)     
+    if (player_card && dealer_card && hide_dealer == true)     
       print "\t+-------+\t\t\t+-------+\n"\
             "\t|#{player_card_array[1]}     |\t\t\t|XXXXXXX|\n"\
             "\t|       |\t\t\t|XXXXXXX|\n"\
@@ -76,7 +76,7 @@ module Print
             "\t|       |\t\t\t|XXXXXXX|\n"\
             "\t|     #{player_card_array[1]}|\t\t\t|XXXXXXX|\n"\
             "\t+-------+\t\t\t+-------+\n"
-    elsif player_card && !dealer_card && open == true
+    elsif player_card && !dealer_card && hide_dealer == false
       print "\t+-------+\n"\
             "\t|#{player_card_array[1]}     |\n"\
             "\t|       |\n"\
@@ -84,7 +84,7 @@ module Print
             "\t|       |\n"\
             "\t|     #{player_card_array[1]}|\n"\
             "\t+-------+\n"
-    elsif (!player_card && dealer_card && open == false)
+    elsif (!player_card && dealer_card && hide_dealer == true)
       print "\t\t\t\t\t+-------+\n"\
             "\t\t\t\t\t|XXXXXXX|\n"\
             "\t\t\t\t\t|XXXXXXX|\n"\
@@ -93,7 +93,7 @@ module Print
             "\t\t\t\t\t|XXXXXXX|\n"\
             "\t\t\t\t\t+-------+\n"
 
-    elsif (player_card && dealer_card && open == true)
+    elsif (player_card && dealer_card && hide_dealer == false)
       print "\t+-------+\t\t\t+-------+\n"\
             "\t|#{player_card_array[1]}     |\t\t\t|#{dealer_card_array[1]}     |\n"\
             "\t|       |\t\t\t|       |\n"\
@@ -101,7 +101,7 @@ module Print
             "\t|       |\t\t\t|       |\n"\
             "\t|     #{player_card_array[1]}|\t\t\t|     #{dealer_card_array[1]}|\n"\
             "\t+-------+\t\t\t+-------+\n"
-    elsif (!player_card && dealer_card && open == true)
+    elsif (!player_card && dealer_card && hide_dealer == false)
       print "\t\t\t\t\t+-------+\n"\
             "\t\t\t\t\t|#{dealer_card_array[1]}     |\n"\
             "\t\t\t\t\t|       |\n"\
@@ -119,6 +119,10 @@ module Print
 
   def print_bank(bank)
     puts "Bank: #{bank}"
+  end
+
+  def wrong_input
+    puts "\nWrong input!"
   end
 
 
