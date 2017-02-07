@@ -2,6 +2,7 @@ require_relative 'deck'
 require_relative 'human'
 require_relative 'dealer'
 require_relative '../modules/print'
+require 'highline'
 
 # Game class
 class Game
@@ -13,13 +14,14 @@ class Game
     print_logo
     @human = new_player
     @dealer = Dealer.new
+    
   end
 
   def start_game
     exit unless can_start_game?   
 
     @deck = Deck.new
-
+    
     make_bet
     get_cards
     calculate_score
@@ -29,22 +31,22 @@ class Game
 
     print_info(@human.score, @human.balance)
     print_cards_left(@deck.deck)
-    print_bank
+    print_bank(@bank)
   end
 
   def show_menu
-    puts "\nMenu:"
-    puts "1. Add card."
-    puts "2. Skip move."
-    puts "3. Open  cards."
-    puts 'Enter \'stop\' for exit.'
+    puts  <<-MENU
+        MENU:
+1. Add card.
+2. Skip move.
+3. Open cards.
+Enter \'stop\' for exit.
+    MENU
   end
 
   def input
-    print "\nEnter your choice number: "
-    input = gets.chomp
-    return input if input.to_i < 4
-    wrong_input
+    @cli = HighLine.new
+    @cli.ask("\nEnter your choice number: ", Integer) { |q| q.in = 1..3 }
   end
 
   def process_turn
@@ -116,13 +118,13 @@ class Game
       print_one_card(@human.cards[2], @dealer.cards[2], false)
       print_info(@human.score, @human.balance)
       print_cards_left(@deck.deck)
-      print_bank
+      print_bank(@bank)
     else
       print_two_cards(@human.cards, @dealer.cards, hide_dealer: true)
       print_one_card(@human.cards[2], @dealer.cards[2], true)
       print_info(@human.score, @human.balance)
       print_cards_left(@deck.deck)
-      print_bank
+      print_bank(@bank)
     end
   end
 
@@ -131,7 +133,7 @@ class Game
     print_two_cards(@human.cards, @dealer.cards, hide_dealer: false)
     print_all_info(@human.score, @human.balance, @dealer.score, @dealer.balance)
     print_cards_left(@deck.deck)
-    print_bank
+    print_bank(@bank)
   end
 
   def human_move
@@ -142,7 +144,7 @@ class Game
     print_one_card(@human.cards[2], nil, true)   
     print_info(@human.score, @human.balance)
     print_cards_left(@deck.deck)
-    print_bank
+    print_bank(@bank)
   end
 
   def game_results
@@ -165,12 +167,9 @@ class Game
     end
     print_all_info(@human.score, @human.balance, @dealer.score, @dealer.balance)
     print_cards_left(@deck.deck)
-    print_bank
+    print_bank(@bank)
   end
 
-  def print_bank
-    puts "Bank: #{@bank}"
-  end
 
   def win(player)
     puts "\t\t! ! ! #{player.name.capitalize} WINS ! ! !"

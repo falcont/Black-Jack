@@ -117,6 +117,11 @@ module Print
     puts "Cards in deck: #{deck.size}"
   end
 
+  def print_bank(bank)
+    puts "Bank: #{bank}"
+  end
+
+
   private
 
   def cards_to_array(cards)
