@@ -37,6 +37,7 @@ class Game
 
   def show_menu
     puts  <<-MENU
+        
         MENU:
 1. Add card.
 2. Skip move.
@@ -61,6 +62,7 @@ Enter \'stop\' for exit.
       new_game
     when 2
       dealer_move
+      human_move if take_one_card?
       game_results
       new_game
     when 3
@@ -117,17 +119,15 @@ Enter \'stop\' for exit.
       @dealer.calculate_score
       print_two_cards(@human.cards, @dealer.cards, hide_dealer: true)
       print_one_card(@human.cards[2], @dealer.cards[2], hide_dealer: true)
-      print_info(@human.score, @human.balance)
-      print_cards_left(@deck.deck)
-      print_bank(@bank)
     else
       print_two_cards(@human.cards, @dealer.cards, hide_dealer: true)
       print_one_card(@human.cards[2], @dealer.cards[2], hide_dealer: false)
+    end
       print_info(@human.score, @human.balance)
       print_cards_left(@deck.deck)
       print_bank(@bank)
-    end
   end
+
 
   def open_cards
     print_header(@human.name)
@@ -147,6 +147,16 @@ Enter \'stop\' for exit.
     print_cards_left(@deck.deck)
     print_bank(@bank)
   end
+
+  def take_one_card? #хотел использовать тут highline, но не получилось, поэтому пока как есть
+    puts "\nOne more card? (y/n)"
+    if gets.chomp == 'y'
+      true 
+    else
+      false
+    end
+  end
+
 
   def game_results
     print "\n\t\t     Game results:\n"
@@ -169,9 +179,6 @@ Enter \'stop\' for exit.
   def human_wins?
     (@human.score < 21 && @dealer.score > 21) || (@human.score > @dealer.score)
   end
-
-
-
 
 
   def win(player)
