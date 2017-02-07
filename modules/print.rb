@@ -112,6 +112,11 @@ module Print
     end
   end
 
+
+  def print_cards_left(deck)
+    puts "Cards in deck: #{deck.size}"
+  end
+
   private
 
   def cards_to_array(cards)

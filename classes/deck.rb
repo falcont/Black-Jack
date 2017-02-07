@@ -1,19 +1,16 @@
 # Deck class
 class Deck
+  attr_reader :deck
 
   def initialize
+    @deck = nil
     create_deck
-    shuffle_deck 
   end
 
   def deal_cards(n)
     cards = []
     n.times { cards << take_card }
     cards
-  end
-
-  def cards_left
-    puts "Cards in deck: #{@deck.size}"
   end
 
   private
@@ -26,12 +23,10 @@ class Deck
       faces.each do |face|
         (@deck ||= []) << { suit => face }
       end
-    end 
-  end
-
-  def shuffle_deck
+    end
     @deck.shuffle!
   end
+
 
   def take_card
     @random_card = @deck.sample

@@ -37,7 +37,7 @@ class Game
     print_two_cards(@human.cards, @dealer.cards, hide_dealer: true)
 
     print_info(@human.score, @human.balance)
-    @deck.cards_left
+    print_cards_left(@deck.deck)
     print_bank
   end
 
@@ -99,13 +99,13 @@ class Game
       print_two_cards(@human.cards, @dealer.cards, hide_dealer: true)
       print_one_card(@human.cards[2], @dealer.cards[2], false)
       print_info(@human.score, @human.balance)
-      @deck.cards_left
+      print_cards_left(@deck.deck)
       print_bank
     else
       print_two_cards(@human.cards, @dealer.cards, hide_dealer: true)
       print_one_card(@human.cards[2], @dealer.cards[2], true)
       print_info(@human.score, @human.balance)
-      @deck.cards_left
+      print_cards_left(@deck.deck)
       print_bank
     end
   end
@@ -114,7 +114,7 @@ class Game
     print_header(@human.name)
     print_two_cards(@human.cards, @dealer.cards, hide_dealer: false)
     print_all_info(@human.score, @human.balance, @dealer.score, @dealer.balance)
-    @deck.cards_left
+    print_cards_left(@deck.deck)
     print_bank
   end
 
@@ -125,7 +125,7 @@ class Game
     @human.calculate_score
     print_one_card(@human.cards[2], nil, true)   
     print_info(@human.score, @human.balance)
-    @deck.cards_left
+    print_cards_left(@deck.deck)
     print_bank
   end
 
@@ -148,7 +148,7 @@ class Game
       end
     end
     print_all_info(@human.score, @human.balance, @dealer.score, @dealer.balance)
-    @deck.cards_left
+    print_cards_left(@deck.deck)
     print_bank
   end
 
@@ -173,7 +173,7 @@ class Game
     puts "\nStart new game? (y/n)"
     if gets.chomp == 'y'
       @human.score = 0
-      @human.cards.clear
+      @human.cards.clear # .clear работает, а "= []" нет
       @dealer.score = 0
       @dealer.cards.clear
       start_game
