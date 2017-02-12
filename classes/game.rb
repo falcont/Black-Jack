@@ -36,24 +36,25 @@ class Game
   end
 
   def show_menu
-    puts  <<-MENU
+    puts <<-MENU
         
-        MENU:
+    MENU:
 1. Add card.
 2. Skip move.
 3. Open cards.
 Enter \'stop\' for exit.
     MENU
+
   end
 
   def input
     @cli = HighLine.new
-    @cli.ask("\nEnter your choice number: ", Integer) { |q| q.in = 1..3 }
+    @cli.ask("\nEnter your choice number: ") { |q| q.in = ['1', '2', '3', 'stop'] }
   end
 
   def process_turn
     value = input
-    stop_game?(value)
+    exit if stop_game?(value)
     case value.to_i
     when 1
       human_move
@@ -123,9 +124,9 @@ Enter \'stop\' for exit.
       print_two_cards(@human.cards, @dealer.cards, hide_dealer: true)
       print_one_card(@human.cards[2], @dealer.cards[2], hide_dealer: false)
     end
-      print_info(@human.score, @human.balance)
-      print_cards_left(@deck.deck)
-      print_bank(@bank)
+    print_info(@human.score, @human.balance)
+    print_cards_left(@deck.deck)
+    print_bank(@bank)
   end
 
 
@@ -161,6 +162,8 @@ Enter \'stop\' for exit.
   def game_results
     print "\n\t\t     Game results:\n"
     if @human.score > 21
+      win(@dealer)
+    elsif @human.score > 21 && @dealer.score > 21
       win(@dealer)
     elsif human_wins?
       win(@human)
@@ -211,7 +214,7 @@ Enter \'stop\' for exit.
   end
 
   def stop_game?(input)
-    exit if input.to_s == 'stop'
+    input.to_s == 'stop'
   end
 
 end

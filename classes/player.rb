@@ -14,7 +14,8 @@ class Player
   end
 
   def cards=(cards)
-    cards.each { |card| @cards << card }
+    # cards.each { |card| @cards << card }
+    @cards += cards.pop(2)
   end
 
   def bet
